@@ -1,18 +1,18 @@
-# Microservices Architecture – CodeQuest
+# Microservices Architecture – CodeQuest (Technical Specifications)
 
-This architecture uses a decentralized approach with 8 distinct microservices to manage the multi-university SaaS platform.
+This architecture consists of 8 highly specialized, non-overlapping services designed for a multi-tenant university ecosystem.
 
-## Service Descriptions
-1. **Identity & Role Service**: Manages user authentication and specific access levels for Students and University Admins across different subdomains.
-2. **Organization Service**: Handles university-specific configurations, tenant branding, and administrative settings for each institution.
-3. **Gamification Service**: Processes XP, badges, and streaks. It maintains institutional leaderboards to keep students engaged.
-4. **Curriculum Service**: Serves both global coding tasks and customized university projects based on the specific academic path.
-5. **Code Execution Service**: An isolated environment that runs student code within secure containers to validate logic and output.
-6. **AI Personalization Service**: Analyzes performance metrics to dynamically adjust the learning difficulty for each individual student.
-7. **Community & Review Service**: Facilitates peer-to-peer code reviews, allowing students to provide feedback and earn community points.
-8. **Battle Arena Service**: A low-latency service handling real-time competitive coding matches between users.
+## Specialized Service Descriptions
+1. **Identity & Access Service**: Handles cryptographic authentication and JWT issuance. It manages cross-university security policies and verifies Global vs. Local admin tokens.
+2. **University Management Service**: Strictly manages tenant-level metadata, including custom subdomains, institutional branding colors, and university-specific feature toggles.
+3. **Global Reward Service**: A specialized ledger service that calculates complex gamification logic (XP, Gems, Streaks) based on incoming events from other services.
+4. **Adaptive Content Service**: Manages the versioning and delivery of curriculum assets. It maps specific projects to the academic calendar of individual universities.
+5. **Safe Code Runner Service**: Uses gRPC and Docker/Podman containers to execute untrusted code in sub-millisecond isolated environments for instant validation.
+6. **AI Behavior Analytics Service**: Implements machine learning models to monitor user learning patterns and predict churn or identify topics where students struggle.
+7. **Peer Assessment Service**: Manages the logic for double-blind code reviews, ensuring students provide constructive feedback before receiving credit for tasks.
+8. **Real-time Matchmaking Service**: A high-concurrency WebSocket server designed for millisecond-latency during live competitive coding "duels" between students.
 
-## Interactions & Scaling
-- **Event-Driven Architecture**: The **Code Execution Service** sends asynchronous signals to the **Gamification Service** upon task completion.
-- **Subdomain Routing**: The **API Gateway** (external to core logic) uses the request host header to identify the tenant and route traffic to the **Organization Service**.
-- **Data Partitioning**: Each service utilizes its own database schema to ensure high availability and prevent single points of failure.
+## System Interaction Details
+- **Decoupled Workflow**: The **Safe Code Runner** does not know who the user is; it only validates code. It sends a generic success event to the **Global Reward Service**, which then looks up the user identity to award XP.
+- **Dynamic Routing**: The **API Gateway** queries the **University Management Service** to resolve tenant context before forwarding any business-logic requests.
+- **Data Integrity**: Each service maintains a strictly isolated database to prevent "noisy neighbor" effects where one university's high load could impact another's data access.

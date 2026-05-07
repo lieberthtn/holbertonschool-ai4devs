@@ -2,18 +2,18 @@ graph TD
   User((User/Uni Admin)) --> Gateway[API Gateway & Router]
   
   subgraph Services
-    Gateway --> Auth[Identity & Role Service]
-    Gateway --> Org[Organization Service]
-    Gateway --> Gami[Gamification Service]
-    Gateway --> Content[Curriculum Service]
-    Gateway --> Sandbox[Code Execution Service]
-    Gateway --> AI[AI Personalization Service]
-    Gateway --> Social[Community & Review Service]
-    Gateway --> Arena[Battle Arena Service]
+    Gateway --> Identity[Identity & Access Service]
+    Gateway --> Tenant[University Management Service]
+    Gateway --> XP[Global Reward Service]
+    Gateway --> Course[Adaptive Content Service]
+    Gateway --> Runner[Safe Code Runner Service]
+    Gateway --> Tutor[AI Behavior Analytics Service]
+    Gateway --> Feedback[Peer Assessment Service]
+    Gateway --> Duel[Real-time Matchmaking Service]
   end
 
   %% Logic flow
-  Gateway -.->|Route| Org
-  Sandbox -.->|Signal| Gami
-  AI -.->|Suggest| Content
-  Social -.->|XP| Gami
+  Identity --> Tenant
+  Runner -.->|Success Signal| XP
+  Tutor -.->|Adjustment| Course
+  Feedback -.->|Validation| XP
