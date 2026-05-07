@@ -1,15 +1,18 @@
-# Microservices Architecture – CodeQuest (Multi-Tenant SaaS)
+# Microservices Architecture – CodeQuest (Full SaaS Model)
 
-This architecture is optimized for a multi-university setup, where each institution operates on its own subdomain (e.g., uni-name.codequest.com) with independent administrative control.
+This architecture supports a multi-university environment using a highly decoupled microservices approach. Each service is independently scalable and responsible for a specific business domain.
 
-## Key Multi-Tenant Services
-- **API Gateway & Subdomain Router**: Acts as the traffic controller. It identifies the "Tenant" (University) from the subdomain and routes requests to the appropriate context.
-- **Organization (Tenant) Service**: Manages university profiles, their specific settings, and global admin assignments.
-- **Identity & Role Service**: Handles multi-level authentication. Distinguishes between Global Admins, University Admins, and Students.
-- **University-Specific Content Service**: Allows each university to upload and manage its own unique curriculum and project rubrics.
-- **Inter-University Battle Arena**: A specialized service that allows students from different universities to compete while maintaining their institutional identity.
+## Core Services & Descriptions
+- **API Gateway & Subdomain Router**: The central entry point. It extracts the university ID from the subdomain (e.g., mdu.codequest.com) and routes traffic accordingly.
+- **Organization Service**: Manages university-level settings, branding, and administrative hierarchies for each tenant.
+- **Identity Service**: Handles authentication and role-based access control (RBAC), distinguishing between students, university admins, and global moderators.
+- **Gamification Service**: Processes all rewards, badges, and leaderboards. It ensures that students only compete within their university rankings unless otherwise specified.
+- **Learning Content Service**: Manages the curriculum, storing both global programming tasks and university-specific customized projects.
+- **Code Execution Service**: An isolated, containerized environment that runs student code securely and validates results against test cases.
+- **AI Personalization Service**: Analyzes student performance logs to adapt the learning curve, suggesting specific topics where the student needs improvement.
+- **Social Review Service**: Facilitates the peer-review process where students can give and receive feedback on their code implementations.
+- **Battle Arena Service**: A real-time WebSocket service that enables live coding competitions between students of the same or different universities.
 
-## Multi-Tenancy Logic
-- **Subdomain Isolation**: Data is filtered based on the Tenant ID identified at the Gateway level.
-- **Admin Delegation**: University Admins can only manage users and content within their own assigned subdomain/tenant.
-- **Curriculum Customization**: While core tasks are available, the **Content Service** allows University Admins to override or add specific modules aligned with their academic year.
+## Multi-Tenancy & Interaction Logic
+- **Data Isolation**: While services are shared, data is logically partitioned by University ID at the database level to ensure privacy.
+- **Asynchronous Communication**: Major events, like completing a "Quest," are broadcasted via an event bus to trigger updates in the **Gamification** and **AI** services without blocking the user.

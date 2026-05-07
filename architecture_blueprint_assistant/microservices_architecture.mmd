@@ -1,25 +1,27 @@
 graph TD
   User((User/Uni Admin)) --> Gateway[API Gateway & Subdomain Router]
   
-  subgraph Core_Services
-    Gateway --> Org[Organization/Tenant Service]
-    Gateway --> Auth[Identity & Role Service]
-    Gateway --> Content[University-Specific Content Service]
+  subgraph Services
+    Gateway --> Org[Organization Service]
+    Gateway --> Auth[Identity Service]
     Gateway --> Gami[Gamification Service]
-  end
-
-  subgraph Execution_Services
+    Gateway --> Content[Learning Content Service]
     Gateway --> Sandbox[Code Execution Service]
     Gateway --> AI[AI Personalization Service]
-    Gateway --> Arena[Inter-University Battle Arena]
+    Gateway --> Social[Social Review Service]
+    Gateway --> Arena[Battle Arena Service]
   end
 
-  subgraph Tenant_Isolated_DBs
-    Org --> DBOrg[(Global Org DB)]
-    Content --> DB3[(Uni-Specific Content DB)]
-    Auth --> DB1[(Role-Based Access DB)]
+  subgraph Databases
+    Org --> DB1[(Org DB)]
+    Auth --> DB2[(Auth DB)]
+    Gami --> DB3[(Game DB)]
+    Content --> DB4[(Content DB)]
+    AI --> DB5[(AI Metrics DB)]
   end
 
-  %% Logic
-  Gateway -.->|Identifies Subdomain| Org
-  Org -.->|Loads Curriculums| Content
+  %% Interactions
+  Gateway -.->|Tenant Context| Org
+  Org -.->|Fetch Policy| Auth
+  Sandbox -.->|Task Result| Gami
+  AI -.->|Path Suggestion| Content
