@@ -17,3 +17,4 @@
 **Intended Behavior**: The goal is to iterate through a fixed-size integer array, print all 5 elements, and then perform a safe mathematical division.
 **Issue Type**: Buffer Overflow and Arithmetic Exception.
 **Notes**: The loop counter exceeds array bounds (i <= 10), and the program crashes due to a hardcoded division by zero.
+
