@@ -1,14 +1,20 @@
 # Monolithic Architecture – CodeQuest
 
-In this monolithic design, all core business logic is bundled into a single deployable unit. This simplifies initial development and deployment but requires scaling the entire system even if only one module is under heavy load.
+This monolithic architecture centralizes all business logic into a single codebase and deployment unit. While this approach simplifies cross-module communication, it creates tight coupling between the components.
 
-## Components
-- **Web & Mobile Frontend**: The interactive user interface where learners write code and view their progress.
-- **Auth & Session Module**: Handles user registration, corporate identity verification, and security tokens.
-- **Gamification Engine**: Manages XP, levels, daily streaks, and the global leaderboard.
-- **AI Adaptive Learning Path**: Analyzes user performance data to customize the difficulty and sequence of challenges.
-- **Code Execution Sandbox**: Provides a secure, isolated environment to run and validate user-submitted code snippets.
-- **Curriculum Manager**: Stores the repository of coding tasks, project instructions, and video content.
-- **Peer Review System**: Manages the workflow for users to submit code for feedback and rewards.
-- **Battle Arena Module**: A real-time competitive module where users solve logic puzzles against each other.
-- **Central Database**: A unified database (e.g., PostgreSQL) that stores all user profiles, code history, and game state.
+## Components & Responsibilities
+- **Web & Mobile Frontend**: The primary interface for users to interact with quests, write code, and view rankings.
+- **Auth & Session Module**: Manages secure access, verifying identity before any other module is engaged.
+- **Gamification Engine**: The core logic for tracking user progress, distributing rewards (XP/Gems), and maintaining streaks.
+- **AI Adaptive Learning Path**: Evaluates user performance history to dynamically update the difficulty of the next curriculum task.
+- **Code Execution Sandbox**: A secure environment that executes user code and sends pass/fail signals to the gamification engine.
+- **Curriculum Manager**: Acts as the content repository, delivering tasks and projects to the user via the Sandbox.
+- **Peer Review System**: Allows users to validate each other's code, triggering rewards in the Gamification Engine upon successful review.
+- **Battle Arena Module**: Facilitates real-time logic competitions, updating scores directly in the central database.
+- **Central Database**: A shared Relational Database (PostgreSQL) where all modules store and retrieve persistent data.
+
+## System Interactions
+- **Authentication Flow**: Users must be verified by the **Auth Module** before the **Curriculum Manager** serves any content.
+- **Learning Cycle**: The **AI Path** analyzes data in the **DB**, then tells the **Curriculum Manager** which task to provide.
+- **Execution & Reward**: When a user runs code in the **Sandbox**, the result is sent to the **Gamification Engine** to update XP and Streaks in the **DB**.
+- **Social Loop**: Completed tasks in the **Review System** or **Battle Arena** notify the **Gamification Engine** to adjust user levels and leaderboard standings.

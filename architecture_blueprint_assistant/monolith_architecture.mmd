@@ -10,6 +10,17 @@ graph TD
     Curric[Curriculum Manager]
     Review[Peer Review System]
     Arena[Battle Arena Module]
+    
+    %% Interactions within Monolith
+    Auth --> Gami
+    Curric --> Sandbox
+    Sandbox --> Gami
+    AI --> Curric
+    Arena --> Gami
+    Review --> Gami
   end
 
   Backend --> DB[(Central Database)]
+  Gami --> DB
+  Auth --> DB
+  Curric --> DB
