@@ -81,3 +81,14 @@ function findUserById(users, id) {
 }
 Alternative Fixes Tested: Using the ES6 Array.prototype.find() method for a more concise implementation.
 Result: Fix works as expected. The logic error was resolved by using the correct comparison operator.
+
+---
+
+## Bug 4 – bug4.c
+**AI Diagnosis**:
+1. **Buffer Overflow**: The loop condition i <= 10 exceeds the array bounds.
+2. **Runtime Error**: Division by zero at x / y.
+
+**Suggested Fix**: Change the loop limit to i < 5 and ensure the divisor is not zero.
+**Alternative Fixes Tested**: Added a condition if (y != 0) for safety.
+**Result**: Fix works as expected.

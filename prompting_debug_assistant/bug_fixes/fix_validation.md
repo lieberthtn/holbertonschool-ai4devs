@@ -18,3 +18,9 @@
 - **Expected Output**: Found user: Ali
 - **Actual Output**: Found user: Ali ✅
 - **Note**: Fixed comparison operator and added null-check for foundUser.
+
+## Bug 4 – bug4_fixed.c
+- **Input**: Array of 5 elements, divisor y=2
+- **Expected Output**: Prints 5 numbers and Result: 5
+- **Actual Output**: Prints 5 numbers and Result: 5 ✅
+- **Note**: Fixed array out-of-bounds loop and prevented division by zero.
