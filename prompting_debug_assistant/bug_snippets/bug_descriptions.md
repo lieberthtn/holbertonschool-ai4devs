@@ -1,46 +1,48 @@
 # Project: Prompting Debug Assistant - Bug Descriptions
 
-This repository contains 4 buggy code snippets across different languages (C++, Python, JS, C). Below is the structured description of each bug's intended functionality and known issues.
+This repository contains a collection of 4 flawed code snippets used for AI-assisted debugging analysis. Each section below follows a standardized format to ensure clarity and consistency.
 
 ---
 
 ## Bug 1 – bug1.cpp
-**Intended Behavior**: The goal of this program is to manage basic string operations. It should concatenate two input strings and display a success message to the user, confirming that the "calculator" logic is functioning correctly.
-**Expected Outcome**: The program should compile, merge string A and B, and print "hesablayici isleyir".
-**Issue Type**: Syntax Error & Type Mismatch.
-**Detailed Notes**: 
-- Compilation fails due to missing semicolons at variable declarations.
-- Logic error: Multiplication of string objects is not defined in C++.
-- Type error: Attempting to store a string concatenation result in an integer variable.
+**Intended Behavior**: The program is designed to perform basic string manipulation. It should initialize two strings, concatenate them to form a single message, and print a confirmation indicating the calculator logic is active.
+**Expected Outcome**: The console should display the concatenated string and the text "hesablayici isleyir" without any errors.
+**Issue Type**: Syntax Error and Type Mismatch.
+**Technical Notes**: 
+- Compilation fails because of missing semicolons after variable declarations.
+- It contains a type mismatch where a string concatenation is assigned to an integer variable.
+- The use of the multiplication operator on strings is unsupported in C++.
+- A stray 'x' character at the end causes a terminal syntax error.
 
 ---
 
 ## Bug 2 – bug2.py
-**Intended Behavior**: This script is designed to process user profile data. It should take a name, an age (integer), and a list of item prices. It is supposed to calculate the average price of those items and predict the user's age for next year.
-**Expected Outcome**: "İstifadəçi emal olunur: Murad", "Gələn il yaşınız olacaq: 21", and the average price.
-**Issue Type**: TypeError & Runtime Exception.
-**Detailed Notes**: 
-- The print statement fails because it tries to add a string and an integer without casting.
-- The average calculation is prone to `ZeroDivisionError` if the list is empty.
-- No null-check for items, which causes a crash if a price is `None`.
+**Intended Behavior**: This function is intended to manage a user's profile and shopping data. It calculates the user's age for the next year and determines the average price of items from a provided list.
+**Expected Outcome**: Successful printing of the user's name, their updated age (e.g., 21), and the correctly calculated average price of the items.
+**Issue Type**: TypeError and Runtime Logic Exception.
+**Technical Notes**: 
+- A `TypeError` occurs when trying to concatenate a string with an integer in the print statement.
+- The script is vulnerable to a `ZeroDivisionError` if the items list is empty during average calculation.
+- The logic fails to account for `None` values in the price list, leading to an application crash.
 
 ---
 
 ## Bug 3 – bug3.js
-**Intended Behavior**: This JavaScript function is a search utility for a user database. Given an array of user objects and a target ID, it should locate the matching user and display their name.
-**Expected Outcome**: If ID 2 is provided, it should return the object for "Veli" and log "Tapılan istifadəçi: Veli".
-**Issue Type**: Logic Error & Reference Error.
-**Detailed Notes**: 
-- The loop counter `i` is leaked to the global scope (missing `let/var`).
-- The `if` statement uses a single `=` (assignment) instead of `==` or `===` (comparison), making the search always return the first item incorrectly.
-- Accessing properties on a potentially `null` result leads to a crash.
+**Intended Behavior**: This script serves as a search utility for a user database. It iterates through an array of objects to find a user by their unique ID and logs the corresponding name to the console.
+**Expected Outcome**: If a valid ID is provided, the system should log "Tapılan istifadəçi: [Name]" and return the user object.
+**Issue Type**: Reference Error and Logical Assignment Error.
+**Technical Notes**: 
+- The loop variable `i` is not declared, causing it to leak into the global scope.
+- An assignment operator `=` is mistakenly used instead of a comparison operator `===` inside the `if` block, making the condition always evaluate to true.
+- The program will crash if the user is not found because it tries to access properties of a `null` object.
 
 ---
 
 ## Bug 4 – bug4.c
-**Intended Behavior**: This C program should safely iterate through a small fixed-size array of 5 integers, print each value, and then perform a standard division operation.
-**Expected Outcome**: Successful printing of 5 numbers and a valid division result without the program crashing.
-**Issue Type**: Buffer Overflow & Arithmetic Exception.
-**Detailed Notes**: 
-- The loop condition `i <= 10` is an "off-by-one" and "out-of-bounds" error since the array only has 5 elements.
-- The program crashes with a "Floating point exception" due to a hardcoded division by zero.
+**Intended Behavior**: The program's purpose is to iterate through a fixed-size integer array, print its elements one by one, and then execute a simple division operation.
+**Expected Outcome**: The program should print exactly 5 integers and complete the division without any runtime crashes or memory leaks.
+**Issue Type**: Buffer Overflow and Arithmetic Exception.
+**Technical Notes**: 
+- A buffer overflow occurs because the loop condition `i <= 10` exceeds the array boundary of 5, leading to a potential segmentation fault.
+- The program suffers an immediate crash (SIGFPE) due to an unhandled division by zero.
+- The lack of bounds checking results in undefined behavior during execution.
