@@ -61,11 +61,3 @@
 - **Acceptance Criteria 1**: One-tap button sends current GPS location to the company security desk.
 - **Acceptance Criteria 2**: App records the last 30 seconds of audio when the emergency trigger is activated.
 **Priority**: High
-
----
-
-## User Story 9
-**As a** Corporate Admin, **I want to** see a summary of platform usage across the company **so that** I can report on environmental impact and employee engagement levels.
-- **Acceptance Criteria 1**: Admin can see total rides completed and total CO2 saved for the entire organization.
-- **Acceptance Criteria 2**: Admin can manage and revoke employee access based on corporate status.
-**Priority**: Medium
