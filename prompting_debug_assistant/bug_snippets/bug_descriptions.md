@@ -1,20 +1,19 @@
 ## Bug 1 – bug1.cpp
-**Intended Behavior**: The program should concatenate two user-provided strings and display a confirmation message "hesablayici isleyir" upon successful execution.
-**Issue Type**: Syntax and Type Mismatch.
-**Notes**: The program fails to compile due to missing semicolons and invalid string-to-int operations.
+**Intended Behavior**: The program should concatenate two strings and print "hesablayici isleyir" upon completion.
+**Issue Type**: Syntax Error and Type Mismatch.
+**Notes**: Missing semicolons and attempting to store string results in an integer variable.
 
 ## Bug 2 – bug2.py
-**Intended Behavior**: This script should process a user's profile by calculating their age for the following year and returning the average price of items in their shopping cart.
-**Issue Type**: Runtime Exception (TypeError / ZeroDivisionError).
-**Notes**: Fails when adding integers to strings in print statements and crashes if the item list is empty or contains null values.
+**Intended Behavior**: The script should calculate a user's future age and find the average price of items in a list.
+**Issue Type**: Runtime Exception.
+**Notes**: Crashes due to string/integer concatenation and potential division by zero with empty lists.
 
 ## Bug 3 – bug3.js
-**Intended Behavior**: This function is intended to search for a specific user object within an array based on a provided ID and return the user's name.
-**Issue Type**: Logical Error and Reference Error.
-**Notes**: Uses assignment (=) instead of comparison (===) inside the loop and lacks a check for undefined users.
+**Intended Behavior**: The function should find a user by ID in an array and return the user's name.
+**Issue Type**: Logical and Reference Error.
+**Notes**: Uses assignment instead of comparison in the if-statement and lacks null-checking for the result.
 
 ## Bug 4 – bug4.c
-**Intended Behavior**: The goal is to iterate through a fixed-size integer array, print all 5 elements, and then perform a safe mathematical division.
-**Issue Type**: Buffer Overflow and Arithmetic Exception.
-**Notes**: The loop counter exceeds array bounds (i <= 10), and the program crashes due to a hardcoded division by zero.
-
+**Intended Behavior**: The program should print all elements of a 5-element array and perform a division operation.
+**Issue Type**: Buffer Overflow and Division by Zero.
+**Notes**: The loop index exceeds array limits and the division operation uses a zero denominator.
