@@ -1,25 +1,19 @@
 ## Bug 1 – bug1.cpp
-**Intended Behavior**: The program should take or concatenate strings and perform basic operations, then print a confirmation message.
-**Issue Type**: Multiple (Syntax errors and Type mismatch).
-**Notes**: 
-- Missing semicolons at the end of declarations and assignments.
-- Attempting to multiply strings (`a * b`), which is not supported in C++.
-- Storing a string result into an integer variable (`c = a + b`).
-- Contains a random 'x' character at the end of the main function.
-
+**Intended Behavior**: The program should concatenate two user-provided strings and display a confirmation message "hesablayici isleyir" upon successful execution.
+**Issue Type**: Syntax and Type Mismatch.
+**Notes**: The program fails to compile due to missing semicolons and invalid string-to-int operations.
 
 ## Bug 2 – bug2.py
-**Intended Behavior**: Process user information and calculate the average price of items in a list.
-**Issue Type**: TypeError and ZeroDivisionError.
-**Notes**: String concatenation with integer, potential division by zero, and handling None values in a list.
+**Intended Behavior**: This script should process a user's profile by calculating their age for the following year and returning the average price of items in their shopping cart.
+**Issue Type**: Runtime Exception (TypeError / ZeroDivisionError).
+**Notes**: Fails when adding integers to strings in print statements and crashes if the item list is empty or contains null values.
 
 ## Bug 3 – bug3.js
-**Intended Behavior**: Find a user by their ID in an array of objects.
-**Issue Type**: ReferenceError, Assignment instead of Comparison, and Null Pointer.
-**Notes**: Global variable leakage, using '=' instead of '===' in IF statement, and accessing properties of a null object.
-
+**Intended Behavior**: This function is intended to search for a specific user object within an array based on a provided ID and return the user's name.
+**Issue Type**: Logical Error and Reference Error.
+**Notes**: Uses assignment (=) instead of comparison (===) inside the loop and lacks a check for undefined users.
 
 ## Bug 4 – bug4.c
-**Intended Behavior**: Print elements of an array and perform a simple division.
-**Issue Type**: Out of bounds and Division by zero.
-**Notes**: Loop runs past the array size and division by zero occurs.
+**Intended Behavior**: The goal is to iterate through a fixed-size integer array, print all 5 elements, and then perform a safe mathematical division.
+**Issue Type**: Buffer Overflow and Arithmetic Exception.
+**Notes**: The loop counter exceeds array bounds (i <= 10), and the program crashes due to a hardcoded division by zero.
