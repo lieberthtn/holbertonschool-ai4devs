@@ -19,4 +19,7 @@
 **Notes**: Global variable leakage, using '=' instead of '===' in IF statement, and accessing properties of a null object.
 
 
-
+## Bug 4 – bug4.c
+**Intended Behavior**: Print elements of an array and perform a simple division.
+**Issue Type**: Out of bounds and Division by zero.
+**Notes**: Loop runs past the array size and division by zero occurs.
