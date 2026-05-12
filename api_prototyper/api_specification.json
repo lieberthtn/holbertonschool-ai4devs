@@ -2,32 +2,29 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Inventory Management API",
-    "description": "API for managing e-commerce product inventory, stock levels, and categories.",
     "version": "1.0.0"
   },
-  "servers": [
-    {
-      "url": "http://localhost:3000/api/v1",
-      "description": "Local development server"
-    }
-  ],
   "components": {
     "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      }
+      "bearerAuth": { "type": "http", "scheme": "bearer", "bearerFormat": "JWT" }
     },
     "schemas": {
       "Product": {
         "type": "object",
+        "required": ["name", "price", "stock_quantity"],
         "properties": {
-          "id": { "type": "string", "example": "PROD-1234" },
-          "name": { "type": "string", "minLength": 3, "example": "Wireless Mouse" },
-          "price": { "type": "number", "format": "float", "minimum": 0.01, "example": 25.99 },
-          "stock_quantity": { "type": "integer", "minimum": 0, "example": 150 },
-          "category": { "type": "string", "example": "Electronics" }
+          "id": { "type": "string" },
+          "name": { "type": "string", "minLength": 3 },
+          "price": { "type": "number", "minimum": 0.01 },
+          "stock_quantity": { "type": "integer", "minimum": 0 },
+          "category": { "type": "string" }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": { "type": "integer" },
+          "message": { "type": "string" }
         }
       }
     }
@@ -35,23 +32,39 @@
   "paths": {
     "/products": {
       "get": {
-        "summary": "List all products",
         "parameters": [
           { "in": "query", "name": "limit", "schema": { "type": "integer", "default": 10 } },
           { "in": "query", "name": "offset", "schema": { "type": "integer", "default": 0 } }
         ],
-        "responses": { "200": { "description": "Successful" } }
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Bad Request" }
+        }
       },
       "post": {
-        "summary": "Create product",
         "security": [{ "bearerAuth": [] }],
-        "responses": { "201": { "description": "Created" } }
+        "responses": {
+          "201": { "description": "Created" },
+          "400": { "description": "Invalid Input" },
+          "401": { "description": "Unauthorized" }
+        }
       }
     },
     "/products/{id}": {
-      "get": { "parameters": [{ "in": "path", "name": "id", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "Found" } } },
-      "put": { "security": [{ "bearerAuth": [] }], "parameters": [{ "in": "path", "name": "id", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "Updated" } } },
-      "delete": { "security": [{ "bearerAuth": [] }], "parameters": [{ "in": "path", "name": "id", "required": true, "schema": { "type": "string" } }], "responses": { "204": { "description": "Deleted" } } }
+      "get": {
+        "parameters": [{ "in": "path", "name": "id", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "OK" }, "404": { "description": "Not Found" } }
+      },
+      "put": {
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "in": "path", "name": "id", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "Updated" }, "401": { "description": "Unauthorized" }, "404": { "description": "Not Found" } }
+      },
+      "delete": {
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "in": "path", "name": "id", "required": true, "schema": { "type": "string" } }],
+        "responses": { "204": { "description": "Deleted" }, "401": { "description": "Unauthorized" }, "404": { "description": "Not Found" } }
+      }
     }
   }
 }
