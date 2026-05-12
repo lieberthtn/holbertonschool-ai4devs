@@ -1,0 +1,57 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Inventory Management API",
+    "description": "API for managing e-commerce product inventory, stock levels, and categories.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1",
+      "description": "Local development server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "Product": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "example": "PROD-1234" },
+          "name": { "type": "string", "minLength": 3, "example": "Wireless Mouse" },
+          "price": { "type": "number", "format": "float", "minimum": 0.01, "example": 25.99 },
+          "stock_quantity": { "type": "integer", "minimum": 0, "example": 150 },
+          "category": { "type": "string", "example": "Electronics" }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/products": {
+      "get": {
+        "summary": "List all products",
+        "parameters": [
+          { "in": "query", "name": "limit", "schema": { "type": "integer", "default": 10 } },
+          { "in": "query", "name": "offset", "schema": { "type": "integer", "default": 0 } }
+        ],
+        "responses": { "200": { "description": "Successful" } }
+      },
+      "post": {
+        "summary": "Create product",
+        "security": [{ "bearerAuth": [] }],
+        "responses": { "201": { "description": "Created" } }
+      }
+    },
+    "/products/{id}": {
+      "get": { "parameters": [{ "in": "path", "name": "id", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "Found" } } },
+      "put": { "security": [{ "bearerAuth": [] }], "parameters": [{ "in": "path", "name": "id", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "Updated" } } },
+      "delete": { "security": [{ "bearerAuth": [] }], "parameters": [{ "in": "path", "name": "id", "required": true, "schema": { "type": "string" } }], "responses": { "204": { "description": "Deleted" } } }
+    }
+  }
+}
