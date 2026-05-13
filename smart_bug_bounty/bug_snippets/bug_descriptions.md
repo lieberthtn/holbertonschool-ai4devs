@@ -5,13 +5,9 @@
 - **Current Issue**: Off-by-one error in slicing logic causing it to skip an element.
 
 ## bug2.js
-- **Intended Behavior**: Fetch and return updated data after a delay.
-- **Current Issue**: Missing await/promise logic; returns initial value before update.
+- **Intended Behavior**: Wait for status update and return "completed".
+- **Current Issue**: Improper async handling; returns "pending" immediately.
 
 ## bug3.java
-- **Intended Behavior**: Compare a string variable with a literal safely.
-- **Current Issue**: Throws NullPointerException because the variable is null.
-
-## bug4.cpp
-- **Intended Behavior**: Store a value in a pointer and print it.
-- **Current Issue**: Dereferencing an uninitialized pointer (Undefined Behavior).
+- **Intended Behavior**: Safely compare input string with a token.
+- **Current Issue**: Throws NullPointerException due to method call on null.
