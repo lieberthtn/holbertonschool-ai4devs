@@ -1,17 +1,18 @@
-# Bug Bounty Challenge - Case 1
-# This function is intended to return the last N items
-# of a given list using Python slicing.
-# The developer made a mistake in the index calculation.
+# BUG BOUNTY CASE #1
+# Language: Python
+# Intended: Return the last N items of a list.
+# Current issue: Logic error in slicing index calculation.
 
 def get_last_n_items(items, n):
-    # Bug: Incorrect offset calculation
-    # Using len(items) - n + 1 skips the correct starting point
-    if n <= 0:
+    """
+    Returns the last n elements from the input list.
+    """
+    if not items or n <= 0:
         return []
+    # The +1 below is the intentional bug causing an off-by-one error
     return items[len(items) - n + 1:]
 
-# Example usage for debugging:
-my_list = [10, 20, 30, 40, 50]
-# Expected result for n=3 is [30, 40, 50]
-# Actual result is [40, 50]
-print(f"Result: {get_last_n_items(my_list, 3)}")
+# Testing the function
+sample_list = [10, 20, 30, 40, 50]
+result = get_last_n_items(sample_list, 3)
+print(f"Result for n=3: {result}") 

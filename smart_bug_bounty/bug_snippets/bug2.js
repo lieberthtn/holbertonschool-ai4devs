@@ -1,24 +1,24 @@
 /**
- * Bug Bounty Challenge - Case 2
- * Intended to demonstrate a common asynchronous mistake
- * in JavaScript where a value is returned before it is updated.
+ * BUG BOUNTY CASE #2
+ * Language: JavaScript
+ * Intended: Fetch a status update asynchronously.
+ * Current issue: Missing promise handling/await logic.
  */
 
-async function fetchData() {
-    let status = "pending";
-    
-    // Simulating an asynchronous operation
-    // The developer forgot that setTimeout does not return a promise
-    // and they are not 'awaiting' the change.
-    setTimeout(() => {
-        status = "completed";
-        console.log("Status updated inside timeout");
-    }, 500);
+async function checkServerStatus() {
+    let currentStatus = "offline";
 
-    return status;
+    // Simulating an async network call
+    // The developer forgot that setTimeout doesn't block execution
+    setTimeout(() => {
+        currentStatus = "online";
+        console.log("Status changed to online internally.");
+    }, 200);
+
+    return currentStatus;
 }
 
-// Execution
-fetchData().then(res => {
-    console.log("Final Result: " + res); // Expected "completed", gets "pending"
+// Execution flow
+checkServerStatus().then(val => {
+    console.log("Server is currently: " + val);
 });

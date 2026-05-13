@@ -1,23 +1,22 @@
 /**
- * Bug Bounty Challenge - Case 3
- * This Java snippet demonstrates a NullPointerException.
- * The code attempts to call a method on a null object reference.
+ * BUG BOUNTY CASE #3
+ * Language: Java
+ * Intended: Safely validate a user token.
+ * Current issue: Potential NullPointerException on method call.
  */
 
-public class BuggyApp {
+public class TokenValidator {
     public static void main(String[] args) {
-        String inputData = null;
+        String userToken = null;
 
-        System.out.println("Checking input consistency...");
-        
-        // Critical Issue: Calling .equals() on a null object
-        // This will crash the JVM at runtime.
-        try {
-            if (inputData.equals("VALID_TOKEN")) {
-                System.out.println("Access Granted");
-            }
-        } catch (NullPointerException e) {
-            System.err.println("Error: " + e.toString());
+        System.out.println("Initiating validation sequence...");
+
+        // CRITICAL BUG: This will throw a NullPointerException 
+        // because userToken is explicitly null.
+        if (userToken.equals("ADMIN_ACCESS_2026")) {
+            System.out.println("Access granted to the system.");
+        } else {
+            System.out.println("Access denied.");
         }
     }
 }

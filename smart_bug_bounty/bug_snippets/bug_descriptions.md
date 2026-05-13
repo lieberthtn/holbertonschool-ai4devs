@@ -1,13 +1,13 @@
 # Bug Descriptions
 
 ## bug1.py
-- **Intended Behavior**: Return the last n items in a list.
-- **Current Issue**: Off-by-one error in slicing logic causing it to skip an element.
+- **Intended Behavior**: Return the last n items in a list correctly using slicing.
+- **Current Issue**: Off-by-one error in indexing (items[len(items) - n + 1:]).
 
 ## bug2.js
-- **Intended Behavior**: Wait for status update and return "completed".
-- **Current Issue**: Improper async handling; returns "pending" immediately.
+- **Intended Behavior**: Wait for the async operation to finish and return "online".
+- **Current Issue**: Function returns the initial value before the timeout completes.
 
 ## bug3.java
-- **Intended Behavior**: Safely compare input string with a token.
-- **Current Issue**: Throws NullPointerException due to method call on null.
+- **Intended Behavior**: Compare a token string without crashing the application.
+- **Current Issue**: Throws a NullPointerException because the variable is null.
