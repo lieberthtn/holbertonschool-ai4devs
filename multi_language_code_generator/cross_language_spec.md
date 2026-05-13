@@ -7,14 +7,18 @@ The algorithm processes a list of cart items and applies various discount rules 
 - **Rule 3**: Discounts are cumulative (Category discount applied first, then total cart discount).
 
 ## Input Format
-A JSON array of objects representing cart items:
+The input must be a JSON array of objects representing cart items. Each object must contain `id`, `name`, `price`, `category`, and `quantity`.
+
+Example Input:
 ```json
 [
   { "id": "P1", "name": "Laptop", "price": 120.00, "category": "Electronics", "quantity": 1 },
   { "id": "P2", "name": "T-Shirt", "price": 20.00, "category": "Apparel", "quantity": 2 }
 ]
 Output Format
-A JSON object with the summary:
+The output must be a single JSON object containing the calculated subtotal, category-specific discounts, total discount amount, and the final price.
+
+Example Output:
 
 JSON
 {
@@ -26,29 +30,29 @@ JSON
 Edge Cases
 Empty Cart: Should return all values as 0.00 without errors.
 
-Zero/Negative Price: Items with price <= 0 should be ignored.
+Zero/Negative Price: Items with price <= 0 should be ignored and skipped during calculation.
 
-Large Cart: Should handle up to 10,000 items efficiently.
+Large Cart: The algorithm should handle up to 10,000 items efficiently without significant performance loss.
 
-Mixed Categories: Ensure Rule 2 only affects the specific items, not the whole cart.
+Mixed Categories: Ensure Rule 2 (Category discount) only affects the specific Electronics items, not the whole cart subtotal.
 
 Test Cases
-Case 1 (Standard): Cart with $120 Electronics item.
+Test Case 1 (Standard): Cart with one $120 Electronics item.
 
-Expected: $120 -> $115 (Rule 2) -> $103.50 (Rule 1).
+Expected: $120 (Subtotal) -> $115 (Rule 2) -> $103.50 (Rule 1).
 
-Case 2 (No Discounts): Cart with $30 Apparel.
+Test Case 2 (No Discounts): Cart with $30 Apparel item only.
 
-Expected: final_price = 30.00.
+Expected: final_price = 30.00 (No rules apply).
 
-Case 3 (Bulk Electronics): 10 Electronics items at $15 each.
+Test Case 3 (Bulk Electronics): 10 Electronics items at $15 each.
 
 Expected: subtotal $150 -> $100 (after Rule 2) -> $90 (after Rule 1).
 
-Case 4 (Empty): Empty input array [].
+Test Case 4 (Empty Input): Input array is empty [].
 
-Expected: final_price = 0.00.
+Expected: subtotal = 0.00, final_price = 0.00.
 
-Case 5 (Invalid Data): Cart with malformed category or negative quantity.
+Test Case 5 (Invalid Data): Cart with malformed category or negative quantity.
 
-Expected: Invalid items skipped, valid items processed.
+Expected: Malformed items are skipped, and only valid items contribute to the final result.
